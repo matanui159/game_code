@@ -1,0 +1,12 @@
+include_rules
+
+LD_FLAGS += -mwindows -lgdi32 -lopengl32
+
+: foreach gen/*.lua |> !LUA |> {GEN}
+: foreach src/*.c | {GEN} |> !CC |> {OBJ}
+: foreach src/video/*.c | {GEN} |> !CC |> {OBJ}
+: {OBJ} |> !LD |> {BIN}
+
+ifneq ($(DEBUG),y)
+	: {BIN} |> !UPX |>
+endif
