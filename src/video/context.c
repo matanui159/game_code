@@ -1,8 +1,6 @@
 #include "context.h"
 #include "error.h"
 #include "window.h"
-
-#define VIDEO_OGL_BUILD
 #include <ogl.h>
 
 static HDC g_dc;

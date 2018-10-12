@@ -1,6 +1,5 @@
 #include "video/window.h"
 #include "video/context.h"
-#include <stdio.h>
 
 int main() {
 	video_window_init();
