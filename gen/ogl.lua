@@ -1,6 +1,21 @@
 local list = {
 	'wglCreateContextAttribsARB',
-	'wglSwapIntervalEXT'
+	'wglSwapIntervalEXT',
+	
+	'glCreateShader',
+	'glDeleteShader',
+	'glShaderSource',
+	'glCompileShader',
+	'glGetShaderiv',
+	'glGetShaderInfoLog',
+
+	'glCreateProgram',
+	'glAttachShader',
+	'glDetachShader',
+	'glLinkProgram',
+	'glGetProgramiv',
+	'glGetProgramInfoLog',
+	'glUseProgram'
 }
 
 for i, entry in ipairs(list) do

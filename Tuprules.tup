@@ -1,5 +1,4 @@
-.gitignore
-include tup/make.tup
+include make.tup
 
 CC_FLAGS += -Wall -Wextra
 CC_FLAGS += -std=c99 -Ibin/gen

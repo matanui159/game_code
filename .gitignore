@@ -1,0 +1,4 @@
+/.tup/
+/bin/
+/make.tup
+*.log

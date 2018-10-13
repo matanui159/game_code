@@ -1,9 +1,9 @@
 debug:
-	echo DEBUG = y > tup/make.tup
+	echo DEBUG = y > make.tup
 	tup $(TUP_FLAGS)
 
 release:
-	echo DEBUG = n > tup/make.tup
+	echo DEBUG = n > make.tup
 	tup $(TUP_FLAGS)
 
 clean:

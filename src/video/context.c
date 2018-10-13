@@ -12,8 +12,8 @@ void video_context_init() {
 	PIXELFORMATDESCRIPTOR format = {
 		.nSize = sizeof(PIXELFORMATDESCRIPTOR),
 		.dwFlags = PFD_DRAW_TO_WINDOW | PFD_SUPPORT_OPENGL | PFD_DOUBLEBUFFER,
-		.cColorBits = 24,
-		.iLayerType = PFD_MAIN_PLANE
+		.iLayerType = PFD_MAIN_PLANE,
+		.cColorBits = 24
 	};
 	if (!SetPixelFormat(g_dc, ChoosePixelFormat(g_dc, &format), &format)) {
 		video_error_win32();
@@ -45,8 +45,7 @@ void video_context_init() {
 }
 
 void video_context_update() {
-	glClearColor(1, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
 	SwapBuffers(g_dc);
 	video_error_gl();
+	glClear(GL_COLOR_BUFFER_BIT);
 }
