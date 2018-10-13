@@ -15,7 +15,21 @@ local list = {
 	'glLinkProgram',
 	'glGetProgramiv',
 	'glGetProgramInfoLog',
-	'glUseProgram'
+	'glUseProgram',
+
+	'glGenVertexArrays',
+	'glBindVertexArray',
+	'glEnableVertexAttribArray',
+	'glVertexAttribPointer',
+	'glVertexAttribDivisor',
+
+	'glGenBuffers',
+	'glBindBuffer',
+	'glBufferData',
+	'glMapBufferRange',
+	'glUnmapBuffer',
+
+	'glDrawArraysInstanced'
 }
 
 for i, entry in ipairs(list) do
