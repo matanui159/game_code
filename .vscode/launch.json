@@ -9,6 +9,7 @@
 			"miDebuggerPath": "gdb.exe",
 			"program": "${workspaceFolder}/bin/out.exe",
 			"cwd": "${workspaceFolder}",
+			"externalConsole": true,
 			"preLaunchTask": "make"
 		}
 	]

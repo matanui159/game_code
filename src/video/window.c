@@ -86,6 +86,10 @@ void video_window_init() {
 	WaitForSingleObject(event, INFINITE);
 }
 
+void video_window_show() {
+	ShowWindow(g_window, SW_SHOW);
+}
+
 HWND video_window_get() {
 	return g_window;
 }

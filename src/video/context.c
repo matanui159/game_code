@@ -6,8 +6,7 @@
 static HDC g_dc;
 
 void video_context_init() {
-	HWND window = video_window_get();
-	g_dc = GetDC(window);
+	g_dc = GetDC(video_window_get());
 
 	PIXELFORMATDESCRIPTOR format = {
 		.nSize = sizeof(PIXELFORMATDESCRIPTOR),
@@ -41,11 +40,8 @@ void video_context_init() {
 	}
 	wglMakeCurrent(g_dc, context);
 	wglSwapIntervalEXT(1);
-	ShowWindow(window, SW_SHOW);
 }
 
 void video_context_update() {
 	SwapBuffers(g_dc);
-	video_error_gl();
-	glClear(GL_COLOR_BUFFER_BIT);
 }

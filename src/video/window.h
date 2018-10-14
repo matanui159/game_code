@@ -3,6 +3,7 @@
 #include <windows.h>
 
 void video_window_init();
+void video_window_show();
 HWND video_window_get();
 
 #endif

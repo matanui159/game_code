@@ -7,7 +7,8 @@ ifeq ($(DEBUG),y)
 	CC_FLAGS += -g
 else
 	CC_FLAGS += -flto -Os
-	LD_FLAGS += -flto -Os -s -static-libgcc
+	LD_FLAGS += -flto -Os
+	LD_FLAGS += -s -mwindows -static-libgcc
 endif
 
 !CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |> bin/%f.o

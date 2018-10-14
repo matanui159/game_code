@@ -1,19 +1,13 @@
 #include "rect.h"
 #include <ogl.h>
-#include <stdint.h>
 #include <stdbool.h>
 
 #define GL_UBYTE GL_UNSIGNED_BYTE
-#define RECT_LIMIT 64
+#define RECT_LIMIT 1024
 
 typedef struct rect_t {
 	video_matrix_t matrix;
-	struct {
-		uint8_t r;
-		uint8_t g;
-		uint8_t b;
-		uint8_t a;
-	} color;
+	uint32_t color;
 } rect_t;
 
 #define RECT_BUFFER (RECT_LIMIT * sizeof(rect_t))
@@ -24,7 +18,7 @@ static int g_count = 0;
 static void rect_map() {
 	g_buffer = glMapBufferRange(GL_ARRAY_BUFFER,
 		0, RECT_BUFFER,
-		GL_MAP_WRITE_BIT | GL_MAP_INVALIDATE_BUFFER_BIT
+		GL_MAP_WRITE_BIT
 	);
 }
 
@@ -67,20 +61,19 @@ void video_rect_init() {
 	rect_map();
 }
 
-void video_rect_draw(video_matrix_t* matrix, float r, float g, float b, float a) {
+void video_rect_draw(video_matrix_t* matrix, uint32_t color) {
 	g_buffer[g_count].matrix = *matrix;
-	g_buffer[g_count].color.r = r * UINT8_MAX;
-	g_buffer[g_count].color.g = g * UINT8_MAX;
-	g_buffer[g_count].color.b = b * UINT8_MAX;
-	g_buffer[g_count].color.a = a * UINT8_MAX;
+	g_buffer[g_count].color = color;
 	if (++g_count == RECT_LIMIT) {
 		video_rect_flush();
 	}
 }
 
 void video_rect_flush() {
-	glUnmapBuffer(GL_ARRAY_BUFFER);
-	glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, g_count);
-	rect_map();
-	g_count = 0;
+	if (g_count > 0) {
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, g_count);
+		rect_map();
+		g_count = 0;
+	}
 }

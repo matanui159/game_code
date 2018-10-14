@@ -1,34 +1,35 @@
-#include "video/window.h"
-#include "video/context.h"
-#include "video/shader.h"
-#include "video/matrix.h"
-#include "video/rect.h"
+#include "video/video.h"
+#include <stdlib.h>
+
+#define RAND(max) (((float)rand() / RAND_MAX) * (max))
 
 int main() {
-	video_window_init();
-	video_context_init();
-	video_shader_init();
-	video_rect_init();
-
+	video_init();
 	unsigned shader = video_shader_create(VIDEO_SHADER_CODE(
-		in vec2 coord;
 		in vec4 color;
-
 		out vec4 fcolor;
-
 		void main() {
 			fcolor = color;
 		}
 	));
-	video_shader_use(shader);
-
+	video_window_show();
 	video_matrix_t matrix;
-	video_matrix_identity(&matrix);
-	video_matrix_rotate(&matrix, 1);
 
 	for (;;) {
-		video_rect_draw(&matrix, 1, 1, 1, 1);
-		video_rect_flush();
-		video_context_update();
+		video_shader_use(shader);
+
+		video_matrix_identity(&matrix);
+		video_matrix_translate(&matrix, -1, -1);
+		video_matrix_scale(&matrix, 2, 2);
+		video_rect_draw(&matrix, 0x000000FF);
+
+		video_matrix_scale(&matrix, 1.0 / 16, 1.0 / 9);
+		for (int i = 0; i < 10000; ++i) {
+			video_matrix_t copy = matrix;
+			video_matrix_translate(&copy, RAND(16), RAND(9));
+			video_matrix_rotate(&copy, RAND(6));
+			video_rect_draw(&copy, (uint32_t)RAND(0xFFFFFFFF));
+		}
+		video_update();
 	}
 }

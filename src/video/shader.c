@@ -56,7 +56,7 @@ void video_shader_init() {
 
 		void main() {
 			coord = vertex.xy;
-			color = vcolor;
+			color = vcolor.abgr;
 			gl_Position = vec4(mat3x2(
 				row0.x, row1.x,
 				row0.y, row1.y,
