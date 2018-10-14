@@ -1,5 +1,7 @@
 #include "video/video.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <time.h>
 
 #define RAND(max) (((float)rand() / RAND_MAX) * (max))
 
@@ -15,7 +17,17 @@ int main() {
 	video_window_show();
 	video_matrix_t matrix;
 
+	clock_t start = clock();
+	int frames = 0;
+
 	for (;;) {
+		++frames;
+		if (clock() - start >= CLOCKS_PER_SEC) {
+			printf("FPS: %i\n", frames);
+			start = clock();
+			frames = 0;
+		}
+
 		video_shader_use(shader);
 
 		video_matrix_identity(&matrix);
