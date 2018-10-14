@@ -1,5 +1,6 @@
 #include "shader.h"
 #include "error.h"
+#include "rect.h"
 #include <ogl.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -86,5 +87,6 @@ unsigned video_shader_create(const char* code) {
 }
 
 void video_shader_use(unsigned program) {
+	video_rect_flush();
 	glUseProgram(program);
 }
