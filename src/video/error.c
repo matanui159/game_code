@@ -19,18 +19,3 @@ void video_error_win32() {
 	FormatMessageA(flags, NULL, GetLastError(), 0, (char*)&buffer, 0, NULL);
 	video_error(buffer);
 }
-
-void video_error_gl() {
-	#define GL_CASE(error) \
-		case error: \
-			video_error(#error); \
-			break;
-	
-	switch (glGetError()) {
-		GL_CASE(GL_OUT_OF_MEMORY)
-		GL_CASE(GL_INVALID_VALUE)
-		GL_CASE(GL_INVALID_ENUM)
-		GL_CASE(GL_INVALID_OPERATION)
-		GL_CASE(GL_INVALID_FRAMEBUFFER_OPERATION)
-	}
-}

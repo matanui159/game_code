@@ -10,5 +10,4 @@ void video_init() {
 void video_update() {
 	video_rect_flush();
 	video_context_update();
-	video_error_gl();
 }

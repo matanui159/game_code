@@ -2,16 +2,19 @@ include make.tup
 
 CC_FLAGS += -Wall -Wextra
 CC_FLAGS += -std=c99 -Ibin/gen
+UPX_FLAGS += --ultra-brute
 
 ifeq ($(DEBUG),y)
 	CC_FLAGS += -g
 else
 	CC_FLAGS += -flto -Os
 	LD_FLAGS += -flto -Os
+	CC_FLAGS += -DNDEBUG
 	LD_FLAGS += -s -mwindows -static-libgcc
+	LUA_FLAGS += -e NDEBUG=true
 endif
 
 !CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |> bin/%f.o
 !LD = |> ^ LD %o^ gcc %f -o %o $(LD_FLAGS) |> bin/out.exe
-!LUA = |> ^ LUA %f^ lua %f > %o |> bin/gen/%B.h
-!UPX = |> ^ UPX %f^ upx --ultra-brute %f -o%o |> bin/upx.exe
+!LUA = |> ^ LUA %f^ lua $(LUA_FLAGS) %f > %o |> bin/gen/%B.h
+!UPX = |> ^ UPX %f^ upx %f -o%o $(UPX_FLAGS) |> bin/upx.exe

@@ -15,33 +15,14 @@ int main() {
 		}
 	));
 	video_window_show();
-	video_matrix_t matrix;
-
-	clock_t start = clock();
-	int frames = 0;
 
 	for (;;) {
-		++frames;
-		if (clock() - start >= CLOCKS_PER_SEC) {
-			printf("FPS: %i\n", frames);
-			start = clock();
-			frames = 0;
-		}
-
+		video_matrix_t matrix;
 		video_shader_use(shader);
-
 		video_matrix_identity(&matrix);
 		video_matrix_translate(&matrix, -1, -1);
 		video_matrix_scale(&matrix, 2, 2);
-		video_rect_draw(&matrix, 0x000000FF);
-
-		video_matrix_scale(&matrix, 1.0 / 16, 1.0 / 9);
-		for (int i = 0; i < 10000; ++i) {
-			video_matrix_t copy = matrix;
-			video_matrix_translate(&copy, RAND(16), RAND(9));
-			video_matrix_rotate(&copy, RAND(6));
-			video_rect_draw(&copy, (uint32_t)RAND(0xFFFFFFFF));
-		}
+		video_rect_draw(&matrix, 0xFF000000);
 		video_update();
 	}
 }

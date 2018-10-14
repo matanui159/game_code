@@ -32,6 +32,10 @@ local list = {
 	'glDrawArraysInstanced'
 }
 
+if not NDEBUG then
+	table.insert(list, 'glDebugMessageCallback')
+end
+
 for i, entry in ipairs(list) do
 	list[i] = {
 		name = entry,
