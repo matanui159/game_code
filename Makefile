@@ -1,16 +1,17 @@
-debug:
-	echo DEBUG = y > make.tup
-	tup $(TUP_FLAGS)
+ifndef config
+	config = debug
+endif
 
-release:
-	echo DEBUG = n > make.tup
+ifeq ($(verbose),y)
+	TUP_FLAGS += --verbose
+endif
+
+all:
+	echo CONFIG = $(config) > config.tup
 	tup $(TUP_FLAGS)
 
 clean:
 	git clean -fdX
 
-verbose:
-	$(eval TUP_FLAGS += --verbose)
-
-.PHONY: debug release clean verbose
-.SILENT: debug release clean verbose
+.PHONY: all clean
+.SILENT: all clean

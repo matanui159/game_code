@@ -1,4 +1,4 @@
 /.tup/
 /bin/
-/make.tup
+/config.tup
 *.log

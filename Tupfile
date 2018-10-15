@@ -7,6 +7,6 @@ LD_FLAGS += -lgdi32 -lopengl32
 : foreach src/video/*.c | {GEN} |> !CC |> {OBJ}
 : {OBJ} |> !LD |> {BIN}
 
-ifneq ($(DEBUG),y)
+ifeq ($(CONFIG),release)
 	: {BIN} |> !UPX |>
 endif

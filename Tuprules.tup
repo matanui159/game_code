@@ -1,10 +1,10 @@
-include make.tup
+include config.tup
 
 CC_FLAGS += -Wall -Wextra
 CC_FLAGS += -std=c99 -Ibin/gen
 UPX_FLAGS += --ultra-brute
 
-ifeq ($(DEBUG),y)
+ifeq ($(CONFIG),debug)
 	CC_FLAGS += -g
 else
 	CC_FLAGS += -flto -Os
