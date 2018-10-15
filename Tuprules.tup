@@ -6,7 +6,9 @@ UPX_FLAGS += --ultra-brute
 
 ifeq ($(CONFIG),debug)
 	CC_FLAGS += -g
-else
+endif
+
+ifeq ($(CONFIG),release)
 	CC_FLAGS += -flto -Os
 	LD_FLAGS += -flto -Os
 	CC_FLAGS += -DNDEBUG
