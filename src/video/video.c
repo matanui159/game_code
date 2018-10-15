@@ -1,4 +1,4 @@
-#include "video.h"
+#include "../video.h"
 
 void video_init() {
 	video_window_init();
