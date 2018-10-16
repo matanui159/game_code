@@ -1,7 +1,7 @@
 include config.tup
 
 CC_FLAGS += -Wall -Wextra
-CC_FLAGS += -std=c99 -Ibin/gen
+CC_FLAGS += -std=c99
 UPX_FLAGS += --ultra-brute
 
 ifeq ($(CONFIG),debug)
@@ -16,7 +16,7 @@ ifeq ($(CONFIG),release)
 	LUA_FLAGS += -e NDEBUG=true
 endif
 
-!CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |> bin/%f.o
-!LD = |> ^ LD %o^ gcc %f -o %o $(LD_FLAGS) |> bin/out.exe
-!LUA = |> ^ LUA %f^ lua $(LUA_FLAGS) %f > %o |> bin/gen/%B.h
-!UPX = |> ^ UPX %f^ upx %f -o%o $(UPX_FLAGS) |> bin/upx.exe
+!CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |>
+!LD = |> ^ LD %o^ gcc %f -o %o $(LD_FLAGS) |>
+!LUA = |> ^ LUA %f^ lua $(LUA_FLAGS) %f > %o |>
+!UPX = |> ^ UPX %f^ upx %f -o%o $(UPX_FLAGS) |>

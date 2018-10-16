@@ -7,7 +7,7 @@
 			"request": "launch",
 			"MIMode": "gdb",
 			"miDebuggerPath": "gdb.exe",
-			"program": "${workspaceFolder}/bin/out.exe",
+			"program": "${workspaceFolder}/bin/platform.exe",
 			"cwd": "${workspaceFolder}",
 			"externalConsole": true,
 			"preLaunchTask": "make"

@@ -15,6 +15,7 @@ int main() {
 	video_window_show();
 
 	clock_t start = clock();
+	game_player_init();
 	for (;;) {
 		clock_t current = clock();
 		if (current - start >= MAIN_CLOCK) {
