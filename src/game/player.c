@@ -1,5 +1,6 @@
 #include "player.h"
 #include "rect.h"
+#include "lerp.h"
 #include "../input.h"
 
 static game_rect_t g_rect;
@@ -20,12 +21,12 @@ void game_player_update() {
 	game_rect_update(&g_rect);
 	
 	if (input_keyboard_down('A')) {
-		g_rect.x.v -= 1;
+		g_rect.x -= 1;
 	}
 	if (input_keyboard_down('D')) {
-		g_rect.x.v += 1;
+		g_rect.x += 1;
 	}
-	g_rect.angle.v += 2;
+	g_rect.angle += 2;
 
 	g_vy -= 0.5;
 	bool jump = input_keyboard_down('W');
@@ -36,9 +37,9 @@ void game_player_update() {
 	}
 	g_jump = jump;
 
-	g_rect.y.v += g_vy;
-	if (g_rect.y.v < 0.5) {
-		g_rect.y.v = 0.5;
+	g_rect.y += g_vy;
+	if (g_rect.y < 0.5) {
+		g_rect.y = 0.5;
 		g_vy = 0;
 		g_ground = true;
 	} else {

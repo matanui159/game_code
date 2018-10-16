@@ -1,17 +1,21 @@
 #ifndef GAME_RECT_H_
 #define GAME_RECT_H_
-#include "lerp.h"
 #include "../video.h"
 #include <stdint.h>
 #include <stdbool.h>
 
 typedef struct game_rect_t {
 	uint32_t color;
-	game_lerp_t x;
-	game_lerp_t y;
-	game_lerp_t width;
-	game_lerp_t height;
-	game_lerp_t angle;
+	float x;
+	float prev_x;
+	float y;
+	float prev_y;
+	float width;
+	float prev_width;
+	float height;
+	float prev_height;
+	float angle;
+	float prev_angle;
 } game_rect_t;
 
 void game_rect_update(game_rect_t* rect);

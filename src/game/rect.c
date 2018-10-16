@@ -1,4 +1,5 @@
 #include "rect.h"
+#include "lerp.h"
 
 void game_rect_update(game_rect_t* rect) {
 	game_lerp_update(&rect->x);
