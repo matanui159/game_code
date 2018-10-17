@@ -5,8 +5,6 @@ LD_FLAGS += -lgdi32 -lopengl32
 
 : foreach gen/*.lua |> !LUA |> bin/gen/%B.h {GEN}
 : foreach src/video/*.c | {GEN} |> !CC |> bin/obj/video/%B.o {OBJ}
-: foreach src/input/*.c | {GEN} |> !CC |> bin/obj/input/%B.o {OBJ}
-: foreach src/game/*.c | {GEN} |> !CC |> bin/obj/game/%B.o {OBJ}
 : {OBJ} |> !LD |> bin/platform.exe {BIN}
 
 ifeq ($(CONFIG),release)
