@@ -5,8 +5,8 @@ LD_FLAGS += -lgdi32 -lopengl32
 
 : foreach gen/*.lua |> !LUA |> bin/gen/%B.h {GEN}
 : foreach src/video/*.c | {GEN} |> !CC |> bin/obj/video/%B.o {OBJ}
-: {OBJ} |> !LD |> bin/platform.exe {BIN}
+: {OBJ} |> !LD |> bin/code.exe {BIN}
 
 ifeq ($(CONFIG),release)
-	: {BIN} |> !UPX |> bin/platform_upx.exe
+	: {BIN} |> !UPX |> bin/code_upx.exe
 endif
