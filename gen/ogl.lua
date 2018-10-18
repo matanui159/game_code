@@ -6,28 +6,25 @@ local list = {
 	'glDeleteShader',
 	'glShaderSource',
 	'glCompileShader',
-	'glGetShaderiv',
-	'glGetShaderInfoLog',
 
 	'glCreateProgram',
 	'glAttachShader',
 	'glDetachShader',
 	'glLinkProgram',
-	'glGetProgramiv',
-	'glGetProgramInfoLog',
 	'glUseProgram',
 
 	'glGenVertexArrays',
 	'glBindVertexArray',
 	'glEnableVertexAttribArray',
 	'glVertexAttribPointer',
+	'glVertexAttribIPointer',
 	'glVertexAttribDivisor',
 
 	'glGenBuffers',
 	'glBindBuffer',
 	'glBufferData',
 	'glMapBufferRange',
-	'glUnmapBuffer',
+	'glFlushMappedBufferRange',
 
 	'glDrawArraysInstanced'
 }

@@ -12,17 +12,17 @@ static unsigned shader_stage(unsigned type, const char* code) {
 
 void video_shader_init() {
 	g_vertex = shader_stage(GL_VERTEX_SHADER, VIDEO_SHADER_CODE(
-		layout(location = 0) in vec4 vertex;
-		layout(location = 1) in vec2 v_coord;
-		layout(location = 2) in uint v_chr;
+		layout(location = 0) in vec2 vertex;
+		layout(location = 1) in vec4 rect;
+		layout(location = 2) in uint v_cell;
 
 		out vec2 coord;
-		out uint chr;
+		out uint cell;
 
 		void main() {
-			coord = v_coord;
-			chr = v_chr;
-			gl_Position = vertex;
+			coord = vertex;
+			cell = v_cell;
+			gl_Position = vec4(vertex * rect.zw + rect.xy, 0, 1);
 		}
 	));
 }

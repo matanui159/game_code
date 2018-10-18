@@ -5,6 +5,7 @@
 #include "video/window.h"
 #include "video/context.h"
 #include "video/shader.h"
+#include "video/varray.h"
 #include "video/text.h"
 
 void video_init();
