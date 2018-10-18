@@ -4,6 +4,7 @@
 
 void video_window_init();
 void video_window_show();
+void video_window_update();
 HWND video_window_get();
 
 #endif

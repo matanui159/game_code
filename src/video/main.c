@@ -6,6 +6,7 @@ int main() {
 	video_context_init();
 	video_window_show();
 	for (;;) {
+		video_window_update();
 		video_context_update();
 	}
 	return 0;

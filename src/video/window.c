@@ -6,7 +6,6 @@
 
 #define WINDOW_CLASS "WINDOW_CLASS"
 
-static volatile HANDLE g_event;
 static volatile HWND g_window;
 
 static LONG_PTR CALLBACK window_proc(HWND wnd, unsigned msg, uintptr_t arg1, LONG_PTR arg2) {
@@ -22,7 +21,7 @@ static LONG_PTR CALLBACK window_proc(HWND wnd, unsigned msg, uintptr_t arg1, LON
 	return DefWindowProcA(wnd, msg, arg1, arg2);
 }
 
-static DWORD CALLBACK window_thread(void* data) {
+void video_window_init() {
 	HINSTANCE instance = GetModuleHandleA(NULL);
 
 	WNDCLASSA wndclass = {
@@ -60,31 +59,18 @@ static DWORD CALLBACK window_thread(void* data) {
 	if (g_window == NULL) {
 		video_error_win32();
 	}
-
-	SetEvent(g_event);
-	for (;;) {
-		MSG msg;
-		GetMessageA(&msg, NULL, 0, 0);
-		DispatchMessageA(&msg);
-		TranslateMessage(&msg);
-	}
-	return 0;
-}
-
-void video_window_init() {
-	g_event = CreateEventA(NULL, true, false, NULL);
-	if (g_event == NULL) {
-		video_error_win32();
-	}
-
-	if (CreateThread(NULL, 0, window_thread, NULL, 0, NULL) == NULL) {
-		video_error_win32();
-	}
-	WaitForSingleObject(g_event, INFINITE);
 }
 
 void video_window_show() {
 	ShowWindow(g_window, SW_SHOW);
+}
+
+void video_window_update() {
+	MSG msg;
+	while (PeekMessageA(&msg, NULL, 0, 0, PM_REMOVE)) {
+		DispatchMessageA(&msg);
+		TranslateMessage(&msg);
+	}	
 }
 
 HWND video_window_get() {
