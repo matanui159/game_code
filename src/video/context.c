@@ -62,7 +62,5 @@ void video_context_init() {
 }
 
 void video_context_update() {
-	glClearColor(1, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT);
 	SwapBuffers(g_dc);
 }
