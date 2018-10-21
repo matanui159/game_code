@@ -1,5 +1,6 @@
 #include "lexer.h"
 #include "input.h"
+#include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
 
@@ -13,6 +14,10 @@ static void lexer_number(uint32_t number) {
 	g_peek.number = number;
 }
 
+static bool lexer_isname(char c) {
+	return isalnum(c) || c == '_' || c == '.';
+}
+
 wheel_token_t wheel_lexer_peek() {
 	if (g_peek.type == WHEEL_TOKEN_NONE) {
 		char c;
@@ -20,7 +25,9 @@ wheel_token_t wheel_lexer_peek() {
 			wheel_input_next();
 		}
 
-		if (strchr("=:-+~", c) != NULL) {
+		if (c == '\0') {
+			g_peek.type = WHEEL_TOKEN_EOF;
+		} else if (strchr("=:-+~", c) != NULL) {
 
 			g_peek.type = WHEEL_TOKEN_SYMBOL;
 			g_peek.symbol = wheel_input_next();
@@ -50,6 +57,10 @@ wheel_token_t wheel_lexer_peek() {
 				}
 			}
 			lexer_number(number);
+
+		// } else if (lexer_isname(c)) {
+
+
 
 		} else {
 			wheel_input_error("Invalid character '%c'", c);

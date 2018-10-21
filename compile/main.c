@@ -1,16 +1,22 @@
 #include "input.h"
+#include "lexer.h"
 #include <stdio.h>
 
 int main() {
-	FILE* test = fopen("test.txt", "wb");
-	unsigned char data[] = {'A', 'B', 'C', 'D', 0xFF};
-	fwrite(data, 1, sizeof(data), test);
-	fclose(test);
-
 	wheel_input_init("test.txt");
+	wheel_token_t token;
 
-	char c;
-	while ((c = wheel_input_next()) != 0) {
-		printf("%c\n", c);
+	while ((token = wheel_lexer_next()).type != WHEEL_TOKEN_EOF) {
+		switch (token.type) {
+			case WHEEL_TOKEN_SYMBOL:
+				printf("SYMBOL '%c'\n", token.symbol);
+				break;
+			case WHEEL_TOKEN_NUMBER:
+				printf("NUMBER %i\n", token.number);
+				break;
+			default:
+				printf("UNKNOWN\n");
+		}
 	}
+	return 0;
 }
