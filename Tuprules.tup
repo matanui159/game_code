@@ -6,7 +6,7 @@ ifeq (@(TUP_PLATFORM),win32)
 	BIN_EXT = .exe
 endif
 
-CC_FLAGS += -std=c99 -Wall
+CC_FLAGS += -std=c11 -Wall
 
 ifeq ($(CONFIG),debug)
 	CC_FLAGS += -g
