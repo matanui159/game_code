@@ -1,0 +1,106 @@
+4 modes: immediate, address, register, regaddr
+5 registers: A, X, Y, I (instruction pointer), S (stack pointer)
+4 flags: Zero, Negative, Carry, oVerflow
+reigster/regaddr has signed offset
+
+load/store:
+	LDA LoaD A
+	STA STore A
+	LDX LoaD X
+	STX STore X
+	LDY LoaD Y
+	STY STore Y
+	LDI LoaD I
+	STI STore I
+
+load/store upper:
+	LUA Load Upper A
+	SUA Store Upper A
+	LUX Load Upper X
+	SUX Store Upper X
+	LUY Load Upper Y
+	SUY Store Upper Y
+	LUI Load Upper I
+	SUI Store Upper I
+
+arithmetic:
+	BOR Bitwise OR
+	AND bitwise AND
+	XOR bitwise XOR
+	NOR bitwise NOR
+	ADD ADD
+	SUB SUBtract
+	SHL Shift Logical
+	SHA Shift Arithmetic
+
+silent arithmetic:
+	SOR Silent OR
+	SND Silent aND
+	SXR Silent XoR
+	SNR Silent NoR
+	SAD Silent ADd
+	SSB Silent SuBtract
+	SSL Silent Shift Logical
+	SSA Silent Shift Arithmetic
+
+jump:
+	JZC Jump if Z Clear
+	JZS Jump if Z Set
+	JNC Jump if N Clear
+	JNS Jump if N Set
+	JCC Jump if C Clear
+	JCS Jump if C set
+	JVC Jump if V Clear
+	JVS Jump if V Set
+
+reserved:
+	---
+	---
+	---
+	---
+	---
+	---
+	---
+	---
+
+extended:
+	LDS LoaD S
+	STS STore S
+	MSR Move S to Register
+	---
+	PSH PuSH
+	POP POP
+	SYS SYStem mode
+	USR USeR mode
+
+reserved:
+	---
+	---
+	---
+	---
+	---
+	---
+	---
+	---
+
+pseudo opcodes:
+	LI* Load Immediate * -> LD* lo(value) / LU* hi(value)
+	CAL CALl -> PSH I+1 / LDI value
+	DAT DATa -> value
+
+
+$0200:
+	MSR A
+	LIX $01FF
+	SSB X
+	JEZ I~.ok
+		LDA $01
+		STA [stack_unsupported]
+		LIA .error
+		LIY io_print
+		LDI Y
+	.error:
+		DAT "Stack Unsupported"
+		DAT 0
+	.ok:
+	# do stuff

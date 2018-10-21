@@ -7,7 +7,7 @@ ifeq ($(verbose),y)
 endif
 
 all:
-	echo CONFIG = $(config) > config.tup
+	echo CONFIG = $(config) > tup/config.tup
 	tup $(TUP_FLAGS)
 
 clean:

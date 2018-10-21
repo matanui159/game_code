@@ -1,0 +1,6 @@
+SHARED = $(ROOT)/shared
+SHARED_CC = -I$(SHARED)
+SHARED_LIB = $(SHARED)/shared.a
+
+COMPILE = $(ROOT)/compile
+COMPILE_BIN = $(COMPILE)/compile$(BIN_EXT)
