@@ -1,27 +1,26 @@
 #include "input.h"
-#include "lexer.h"
+#include "build.h"
+#include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
-int main() {
-	wheel_input_init("test.txt");
-	wheel_token_t token;
+static void main_help() {
+	puts("Usage:");
+	puts("  compile build <output> <file>");
+	puts("  compile link  <output> <files...>");
+	exit(EXIT_FAILURE);
+}
 
-	while ((token = wheel_lexer_next()).type != WHEEL_TOKEN_EOF) {
-		switch (token.type) {
-			case WHEEL_TOKEN_NEWLINE:
-				printf("NEW LINE\n");
-			case WHEEL_TOKEN_SYMBOL:
-				printf("SYMBOL '%c'\n", token.symbol);
-				break;
-			case WHEEL_TOKEN_NUMBER:
-				printf("NUMBER %i\n", token.number);
-				break;
-			case WHEEL_TOKEN_NAME:
-				printf("NAME %s\n", token.string);
-				break;
-			default:
-				printf("UNKNOWN\n");
-		}
+int main(int argc, char* argv[]) {
+	if (argc < 4) {
+		main_help();
 	}
-	return 0;
+
+	if (strcmp(argv[1], "build") == 0) {
+		wheel_input_init(argv[3]);
+		wheel_build(argv[2]);
+		return 0;
+	} else {
+		main_help();
+	}
 }

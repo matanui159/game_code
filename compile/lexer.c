@@ -31,6 +31,10 @@ static bool lexer_isname(char c) {
 
 static int lexer_nexthex() {
 	char c = wheel_input_next();
+	if (!isxdigit(c)) {
+		lexer_error(c, "hex digit");
+	}
+
 	if (c <= '9') {
 		return c - '0';
 	} else if (c <= 'F') {
@@ -38,7 +42,6 @@ static int lexer_nexthex() {
 	} else if (c <= 'f') {
 		return c - 'a' + 10;
 	} else {
-		lexer_error(c, "hex digit");
 		return 0;
 	}
 }
@@ -166,6 +169,6 @@ void wheel_lexer_error(wheel_token_t* token, const char* expect) {
 		case WHEEL_TOKEN_STRING:
 			wheel_input_error("Expected %s, got \"%s\"", expect, token->string);
 		default:
-			break;
+			wheel_input_error("Expected %s", expect);
 	}
 }
