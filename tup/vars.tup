@@ -1,12 +1,3 @@
-STB = $(ROOT)/stb
-STB_CC = -I$(STB)
-
-FONT = $(ROOT)/font8x8
-FONT_CC = -I$(FONT)
-
-SHARED = $(ROOT)/shared
-SHARED_CC = -I$(SHARED)
-SHARED_LIB = $(SHARED)/shared.a
-
-COMPILE = $(ROOT)/compile
-COMPILE_BIN = $(COMPILE)/compile$(BIN_EXT)
+STB = -I$(ROOT)/stb
+FONT = -I$(ROOT)/font8x8
+COMPILE = $(ROOT)/compile/compile$(BIN_EXT)
