@@ -24,7 +24,7 @@ char wheel_input_peek() {
 	if (g_peek == -1) {
 		g_peek = fgetc(g_file);
 		if (g_peek == 0 || g_peek >= 0x80) {
-			wheel_input_error("Unknown character $%02X", g_peek);
+			wheel_input_error("Invalid character $%02X", g_peek);
 		}
 		if (g_peek == -1) {
 			g_peek = 0;
