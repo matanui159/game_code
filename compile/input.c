@@ -8,7 +8,7 @@
 static FILE* g_file;
 static int g_peek = -1;
 
-static const char* g_path;
+static const char* g_path = "cmd";
 static int g_line = 1;
 
 void wheel_input_init(const char* path) {
@@ -43,11 +43,5 @@ char wheel_input_next() {
 }
 
 void wheel_input_error(const char* fmt, ...) {
-	va_list list;
-	va_start(list, fmt);
-	fprintf(stderr, "%s:%i: ", g_path, g_line);
-	vfprintf(stderr, fmt, list);
-	fputc('\n', stderr);
-	va_end(list);
-	exit(EXIT_FAILURE);
+	// TODO: fixup
 }

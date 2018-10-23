@@ -8,7 +8,6 @@
 static wheel_token_t g_peek = {.type = WHEEL_TOKEN_NONE};
 
 static void lexer_error(char c, const char* expect) {
-	char buffer[] = "'_'";
 	switch (c) {
 		case 0:
 			g_peek.type = WHEEL_TOKEN_EOF;
@@ -17,9 +16,8 @@ static void lexer_error(char c, const char* expect) {
 			g_peek.type = WHEEL_TOKEN_NEWLINE;
 			break;
 		default:
-			g_peek.type = WHEEL_TOKEN_NAME;
-			g_peek.string = buffer;
-			buffer[1] = c;
+			g_peek.type = WHEEL_TOKEN_SYMBOL;
+			g_peek.symbol = c;
 			break;
 	}
 	wheel_lexer_error(&g_peek, expect);
@@ -161,7 +159,7 @@ void wheel_lexer_error(wheel_token_t* token, const char* expect) {
 		case WHEEL_TOKEN_NEWLINE:
 			wheel_input_error("Expected %s, got new line", expect);
 		case WHEEL_TOKEN_SYMBOL:
-			wheel_input_error("Expected %s, got %c", expect, token->symbol);
+			wheel_input_error("Expected %s, got `%c`", expect, token->symbol);
 		case WHEEL_TOKEN_NUMBER:
 			wheel_input_error("Expected %s, got %i", expect, token->number);
 		case WHEEL_TOKEN_NAME:
