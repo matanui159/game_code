@@ -87,6 +87,7 @@ pseudo opcodes:
 	LI* Load Immediate * -> LD* lo(value) / LU* hi(value)
 	CAL CALl -> PSH I+1 / LDI value
 	DAT DATa -> value
+	FIL FILl -> value x $00
 
 
 $0200:
