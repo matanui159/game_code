@@ -1,5 +1,6 @@
 #ifndef WHEEL_LEXER_H_
 #define WHEEL_LEXER_H_
+#include "input.h"
 #include <stdint.h>
 
 typedef enum wheel_token_type_t {
@@ -21,8 +22,15 @@ typedef struct wheel_token_t {
 	};
 } wheel_token_t;
 
-wheel_token_t wheel_lexer_peek();
-wheel_token_t wheel_lexer_next();
-void wheel_lexer_error(wheel_token_t* token, const char* expect);
+typedef struct wheel_lexer_t {
+	wheel_input_t input;
+	wheel_token_t peek;
+} wheel_lexer_t;
+
+void wheel_lexer_create(wheel_lexer_t* lexer, const char* path);
+void wheel_lexer_destroy(wheel_lexer_t* lexer);
+wheel_token_t wheel_lexer_peek(wheel_lexer_t* lexer);
+wheel_token_t wheel_lexer_next(wheel_lexer_t* lexer);
+void wheel_lexer_error(wheel_lexer_t* lexer, wheel_token_t* token, const char* expect);
 
 #endif

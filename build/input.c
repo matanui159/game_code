@@ -1,43 +1,44 @@
 #include "input.h"
 #include "util.h"
-#include <string.h>
-#include <errno.h>
 
-static FILE* g_file;
-static int g_peek = -1;
-
-static const char* g_path;
-static int g_line = 1;
-
-void wheel_input_init(const char* path) {
-	g_file = wheel_util_file(path, "rb");
-	g_path = path;
+void wheel_input_create(wheel_input_t* input, const char* path) {
+	input->file = wheel_util_file(path, "rb");
+	input->path = path;
+	input->line = 1;
+	input->peek = -1;
 }
 
-char wheel_input_peek() {
-	if (g_peek == -1) {
-		g_peek = fgetc(g_file);
+void wheel_input_destroy(wheel_input_t* input) {
+	fclose(input->file);
+}
+
+char wheel_input_peek(wheel_input_t* input) {
+	if (input->peek == -1) {
+		input->peek = fgetc(input->file);
 		
-		if (g_peek == 0 || g_peek >= 0x80) {
-			wheel_input_error("Invalid character $%02X", g_peek);
+		if (input->peek < ' ' || input->peek > '~') {
+			if (input->peek == -1) {
+				input->peek = 0;
+			} else {
+				wheel_input_error(input,
+					"Invalid character $%02X", input->peek
+				);
+			}
 		}
-		if (g_peek == -1) {
-			g_peek = 0;
-		}
-		if (g_peek == '\n') {
-			++g_line;
+		if (input->peek == '\n') {
+			++input->peek;
 		}
 	}
-	return g_peek;
+	return input->peek;
 }
 
-char wheel_input_next() {
-	char next = wheel_input_peek();
-	g_peek = -1;
+char wheel_input_next(wheel_input_t* input) {
+	char next = wheel_input_peek(input);
+	input->peek = -1;
 	return next;
 }
 
-void wheel_input_error(const char* fmt, ...) {
+void wheel_input_error(wheel_input_t* input, const char* fmt, ...) {
 	va_list list;
 	va_start(list, fmt);
 
@@ -49,5 +50,5 @@ void wheel_input_error(const char* fmt, ...) {
 	char buffer[size];
 	vsnprintf(buffer, size, fmt, list);
 	va_end(list);
-	wheel_util_error("[%s:%i] %s", g_path, g_line, buffer);
+	wheel_util_error("[%s:%i] %s", input->path, input->line, buffer);
 }

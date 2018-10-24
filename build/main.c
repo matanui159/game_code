@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[]) {
 	if (argc < 3) {
-		wheel_util_error("[USAGE] %s <input> <output>", argv[0]);
+		wheel_util_error("[USAGE] build <input> <output>");
 	}
 	return 0;
 }
