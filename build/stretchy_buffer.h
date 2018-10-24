@@ -171,6 +171,8 @@
 //
 //   See end of file for license information.
 
+// Modified by Joshua Minter
+
 #ifndef STB_STRETCHY_BUFFER_H_INCLUDED
 #define STB_STRETCHY_BUFFER_H_INCLUDED
 
@@ -196,9 +198,14 @@
 #define stb__sbmaybegrow(a,n) (stb__sbneedgrow(a,(n)) ? stb__sbgrow(a,n) : 0)
 #define stb__sbgrow(a,n)      (*((void **)&(a)) = stb__sbgrowf((a), (n), sizeof(*(a))))
 
+void * stb__sbgrowf(void* arr, int increment, int itemsize);
+
+#endif // STB_STRETCHY_BUFFER_H_INCLUDED
+
+#ifdef STRETCHY_BUFFER_IMPLEMENTATION
 #include <stdlib.h>
 
-static void * stb__sbgrowf(void *arr, int increment, int itemsize)
+void * stb__sbgrowf(void *arr, int increment, int itemsize)
 {
    int dbl_cur = arr ? 2*stb__sbm(arr) : 0;
    int min_needed = stb_sb_count(arr) + increment;
@@ -216,7 +223,7 @@ static void * stb__sbgrowf(void *arr, int increment, int itemsize)
       return (void *) (2*sizeof(int)); // try to force a NULL pointer exception later
    }
 }
-#endif // STB_STRETCHY_BUFFER_H_INCLUDED
+#endif // STRETCHY_BUFFER_IMPLEMENTATION
 
 
 /*

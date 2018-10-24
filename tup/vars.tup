@@ -1,5 +1,3 @@
-# TODO: do some macro magic to make stb__sbgrowf defined once
-
-STB = -I$(ROOT)/stb -Wno-unused-function
+STB = -I$(ROOT)/stb
 FONT = -I$(ROOT)/font8x8
 COMPILE = $(ROOT)/compile/compile$(BIN_EXT)

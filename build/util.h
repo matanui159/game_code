@@ -8,7 +8,6 @@ void wheel_util_error(const char* fmt, ...);
 FILE* wheel_util_file(const char* path, const char* mode);
 
 #define NO_STRETCHY_BUFFER_SHORT_NAMES
-#define STRETCHY_BUFFER_OUT_OF_MEMORY wheel_util_error("Out of memory")
-#include <stretchy_buffer.h>
+#include "stretchy_buffer.h"
 
 #endif
