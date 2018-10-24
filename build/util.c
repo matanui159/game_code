@@ -4,7 +4,7 @@
 #include <errno.h>
 
 void wheel_util_verror(const char* fmt, va_list list) {
-	fputs("ERROR: ", stderr);
+	fputs("[ERROR] ", stderr);
 	vfprintf(stderr, fmt, list);
 	fputc('\n', stderr);
 	exit(EXIT_FAILURE);
@@ -13,7 +13,7 @@ void wheel_util_verror(const char* fmt, va_list list) {
 void wheel_util_error(const char* fmt, ...) {
 	va_list list;
 	va_start(list, fmt);
-	wheel_util_error(fmt, list);
+	wheel_util_verror(fmt, list);
 }
 
 FILE* wheel_util_file(const char* path, const char* mode) {

@@ -1,6 +1,6 @@
 #include "lexer.h"
+#include "util.h"
 #include "input.h"
-#include "buffer.h"
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
