@@ -6,8 +6,9 @@
 int main(int argc, char* argv[]) {
 	au_log_init(AU_LOG_DBUG, NULL, NULL);
 	au_test_run();
+
 	if (argc < 3) {
-		AU_LOG(AU_LOG_FAIL, "Invalid usage");
+		au_log(AU_LOG_FAIL, "Usage: build <input> <output>");
 	}
 	return 0;
 }
