@@ -4,11 +4,11 @@
 #include <au/log.h>
 
 #ifndef WHEEL_LOG_LEVEL
-	#define WHEEL_LOG_LEVEL AU_LOG_NONE
+	#define WHEEL_LOG_LEVEL AU_LOG_DBUG
 #endif
 
 int main(int argc, char* argv[]) {
-	au_log_init(WHEEL_LOG_LEVEL, NULL, NULL);
+	au_log_init(WHEEL_LOG_LEVEL, au_log_default);
 	au_test_run();
 
 	if (argc < 3) {

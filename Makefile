@@ -1,6 +1,4 @@
-ifndef config
-	config = debug
-endif
+config ?= debug
 
 ifeq ($(verbose),y)
 	TUP_FLAGS += --verbose

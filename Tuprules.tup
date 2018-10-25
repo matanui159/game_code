@@ -10,12 +10,10 @@ CC_FLAGS += -std=c11 -Wall
 
 ifeq ($(CONFIG),debug)
 	CC_FLAGS += -g -DAU_TEST_BUILD
-	CC_FLAGS += -DWHEEL_LOG_LEVEL=AU_LOG_DBUG
 endif
 
 ifeq ($(CONFIG),release)
-	CC_FLAGS += -flto -Os
-	CC_FLAGS += -DWHEEL_LOG_LEVEL=AU_LOG_WARN
+	CC_FLAGS += -flto -Os -DWHEEL_LOG_LEVEL=AU_LOG_WARN
 	LD_FLAGS += -flto -Os -s
 	ifeq (@(TUP_PLATFORM),win32)
 		LD_FLAGS += -static-libgcc
