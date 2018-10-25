@@ -1,6 +1,6 @@
+[submodule "libau"]
+	path = libau
+	url = https://github.com/matanui159/libau.git
 [submodule "font8x8"]
 	path = font8x8
 	url = https://github.com/dhepper/font8x8.git
-[submodule "libstuff"]
-	path = libstuff
-	url = https://github.com/matanui159/libstuff.git
