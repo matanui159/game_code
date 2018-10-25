@@ -1,3 +1,9 @@
-STB = -I$(ROOT)/stb
-FONT = -I$(ROOT)/font8x8
-COMPILE = $(ROOT)/compile/compile$(BIN_EXT)
+LIBAU = $(ROOT)/libau
+LIBAU_CC = -I$(LIBAU)/inc
+LIBAU_BIN = $(LIBAU)/libau.a
+
+FONT = $(ROOT)/font8x8
+FONT_CC = -I$(FONT)
+
+BUILD = $(ROOT)/build
+BUILD_BIN = $(BUILD)/build$(BIN_EXT)

@@ -1,6 +1,6 @@
 include_rules
 
-CC_FLAGS += $(STB)
+CC_FLAGS += $(LIBAU_CC)
 
 : foreach *.c |> !CC |> {OBJ}
-: {OBJ} $(SHARED_LIB) |> !LD |>
+: {OBJ} $(LIBAU_BIN) |> !LD |>

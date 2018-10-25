@@ -9,7 +9,7 @@ endif
 CC_FLAGS += -std=c11 -Wall
 
 ifeq ($(CONFIG),debug)
-	CC_FLAGS += -g
+	CC_FLAGS += -g -DAU_TEST_BUILD
 endif
 
 ifeq ($(CONFIG),release)
@@ -19,6 +19,8 @@ ifeq ($(CONFIG),release)
 		LD_FLAGS += -static-libgcc
 	endif
 endif
+
+AU_FLAGS = $(CC_FLAGS)
 
 !CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |> bin/%B.o
 !LD = |> ^ LD %o^ gcc %f -o %o $(LD_FLAGS) |> %d$(BIN_EXT)

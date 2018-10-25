@@ -7,8 +7,8 @@
 			"request": "launch",
 			"MIMode": "gdb",
 			"miDebuggerPath": "gdb",
-			"program": "${workspaceFolder}/compile/compile",
-			"cwd": "${workspaceFolder}/compile",
+			"program": "${workspaceFolder}/build/build",
+			"cwd": "${workspaceFolder}",
 			"externalConsole": true,
 			"preLaunchTask": "make",
 			"windows": {

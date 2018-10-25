@@ -12,6 +12,7 @@ all:
 
 clean:
 	git clean -fdX
+	cd libau; git clean -fdX
 
 .PHONY: all clean
 .SILENT: all clean
