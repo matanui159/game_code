@@ -20,8 +20,6 @@ ifeq ($(CONFIG),release)
 	endif
 endif
 
-AU_FLAGS = $(CC_FLAGS)
-
 !CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |> bin/%B.o
 !LD = |> ^ LD %o^ gcc %f -o %o $(LD_FLAGS) |> %d$(BIN_EXT)
 
