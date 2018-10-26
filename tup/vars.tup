@@ -1,6 +1,6 @@
 LIBAU = $(ROOT)/libau
 LIBAU_CC = -I$(LIBAU)/inc
-LIBAU_BIN = $(LIBAU)/libau.a
+LIBAU_LIB = $(LIBAU)/libau.a
 
 FONT = $(ROOT)/font8x8
 FONT_CC = -I$(FONT)

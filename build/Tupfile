@@ -3,4 +3,4 @@ include_rules
 CC_FLAGS += $(LIBAU_CC)
 
 : foreach *.c |> !CC |> {OBJ}
-: {OBJ} $(LIBAU_BIN) |> !LD |>
+: {OBJ} $(LIBAU_LIB) |> !LD |>
