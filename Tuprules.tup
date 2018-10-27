@@ -1,26 +1,25 @@
 .gitignore
-ROOT = $(TUP_CWD)
 include tup/config.tup
 
 ifeq (@(TUP_PLATFORM),win32)
 	BIN_EXT = .exe
 endif
 
-CC_FLAGS += -std=c11 -Wall
-
+CC_FLAGS = -std=c11 -Wall
+LD_FLAGS =
 ifeq ($(CONFIG),debug)
 	CC_FLAGS += -g -DAU_TEST_BUILD
 endif
-
 ifeq ($(CONFIG),release)
-	CC_FLAGS += -flto -Os -DWHEEL_LOG_LEVEL=AU_LOG_WARN
-	LD_FLAGS += -flto -Os -s
+	CC_FLAGS += -O3 -DNDEBUG
+	LD_FLAGS += -s
 	ifeq (@(TUP_PLATFORM),win32)
 		LD_FLAGS += -static-libgcc
 	endif
 endif
 
-!CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |> bin/%B.o
-!LD = |> ^ LD %o^ gcc %f -o %o $(LD_FLAGS) |> %d$(BIN_EXT)
+!CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |>
+!LD = |> ^ LD %o^ gcc %f -o %o $(LD_FLAGS) |>
 
+ROOT = $(TUP_CWD)
 include tup/vars.tup

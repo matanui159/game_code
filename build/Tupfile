@@ -1,6 +1,5 @@
 include_rules
 
-CC_FLAGS += $(LIBAU_CC)
-
-: foreach *.c |> !CC |> {OBJ}
-: {OBJ} $(LIBAU_LIB) |> !LD |>
+CC_FLAGS += $(AU_CC)
+: foreach *.c |> !CC |> bin/%B.o {OBJ}
+: {OBJ} $(AU_LIB) |> !LD |> build$(BIN_EXT)

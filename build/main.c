@@ -3,12 +3,12 @@
 #include <au/test.h>
 #include <au/log.h>
 
-#ifndef WHEEL_LOG_LEVEL
-	#define WHEEL_LOG_LEVEL AU_LOG_DBUG
-#endif
-
 int main(int argc, char* argv[]) {
-	au_log_init(WHEEL_LOG_LEVEL, au_log_default);
+	#ifdef NDEBUG
+		au_log_init(AU_LOG_WARN, au_log_default);
+	#else
+		au_log_init(AU_LOG_DBUG, au_log_default);
+	#endif
 	au_test_run();
 
 	if (argc < 3) {

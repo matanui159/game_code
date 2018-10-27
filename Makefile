@@ -1,16 +1,14 @@
-config ?= debug
-
+export config ?= debug
 ifeq ($(verbose),y)
-	TUP_FLAGS += --verbose
+	export TUP_FLAGS += --verbose
 endif
 
-all:
-	echo CONFIG = $(config) > tup/config.tup
+all: setup
 	tup $(TUP_FLAGS)
-
+setup:
+	echo CONFIG = $(config) > tup/config.tup
+	cd libau; make setup
 clean:
 	git clean -fdX
-	cd libau; git clean -fdX
-
-.PHONY: all clean
-.SILENT: all clean
+	cd libau; make clean
+.PHONY: all setup clean
