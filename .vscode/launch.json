@@ -7,7 +7,7 @@
 			"request": "launch",
 			"MIMode": "gdb",
 			"miDebuggerPath": "gdb",
-			"program": "${workspaceFolder}/build/build",
+			"program": "${workspaceFolder}/libau/test",
 			"cwd": "${workspaceFolder}",
 			"externalConsole": true,
 			"preLaunchTask": "make",

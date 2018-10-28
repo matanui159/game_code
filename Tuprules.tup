@@ -5,17 +5,24 @@ ifeq (@(TUP_PLATFORM),win32)
 	BIN_EXT = .exe
 endif
 
-CC_FLAGS = -std=c11 -Wall
+CC_FLAGS = -std=c11 -Wall -Wpedantic
 LD_FLAGS =
+ifeq (@(TUP_PLATFORM),win32)
+	LD_FLAGS += -static-libgcc
+endif
+
 ifeq ($(CONFIG),debug)
 	CC_FLAGS += -g -DAU_TEST_BUILD
 endif
+
 ifeq ($(CONFIG),release)
 	CC_FLAGS += -O3 -DNDEBUG
 	LD_FLAGS += -s
-	ifeq (@(TUP_PLATFORM),win32)
-		LD_FLAGS += -static-libgcc
-	endif
+endif
+
+ifeq ($(CONFIG),size)
+	CC_FLAGS += -flto -Os -DNDEBUG
+	LD_FLAGS += -flto -Os -s
 endif
 
 !CC = |> ^ CC %f^ gcc -c %f -o %o $(CC_FLAGS) |>
