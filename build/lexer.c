@@ -1,5 +1,6 @@
 #include "lexer.h"
-#include "util.h"
+#include <au/log.h>
+#include <au/string.h>
 #include <stdbool.h>
 #include <string.h>
 #include <ctype.h>
@@ -69,6 +70,7 @@ static void lexer_number(wheel_lexer_t* lexer, uint32_t number) {
 	}
 	lexer->peek.type = WHEEL_TOKEN_NUMBER;
 	lexer->peek.number = number;
+	au_log_dbug("LEXER", "Token: %i", number);
 }
 
 void wheel_lexer_create(wheel_lexer_t* lexer, const char* path) {
@@ -86,16 +88,19 @@ wheel_token_t wheel_lexer_peek(wheel_lexer_t* lexer) {
 		if (c == '\0') {
 
 			lexer->peek.type = WHEEL_TOKEN_EOF;
+			au_log_dbug("LEXER", "Token: end of file");
 
 		} else if (c == '\n') {
 
 			wheel_input_next(&lexer->input);
 			lexer->peek.type = WHEEL_TOKEN_NEWLINE;
+			au_log_dbug("LEXER", "Token: new line");
 
 		} else if (strchr("=:-+~", c) != NULL) {
 
 			lexer->peek.type = WHEEL_TOKEN_SYMBOL;
-			lexer->peek.type = wheel_input_next(&lexer->input);
+			lexer->peek.symbol = wheel_input_next(&lexer->input);
+			au_log_dbug("LEXER", "Token: `%c`", lexer->peek.symbol);
 
 		} else if (isdigit(c)) {
 
@@ -119,8 +124,7 @@ wheel_token_t wheel_lexer_peek(wheel_lexer_t* lexer) {
 		} else if (c == '\'') {
 
 			wheel_input_next(&lexer->input);
-			lexer->peek.type = WHEEL_TOKEN_NUMBER;
-			lexer->peek.number = lexer_nextchar(lexer);
+			lexer_number(lexer, lexer_nextchar(lexer));
 			if ((c = wheel_input_next(&lexer->input)) != '\'') {
 				lexer_error(lexer, c, "closing quote");
 			}
@@ -128,23 +132,27 @@ wheel_token_t wheel_lexer_peek(wheel_lexer_t* lexer) {
 		} else if (lexer_isname(c)) {
 
 			lexer->peek.type = WHEEL_TOKEN_NAME;
-			lexer->peek.string = NULL;
+			au_string_t string;
+			au_string_create(&string);
 			while (lexer_isname(wheel_input_peek(&lexer->input))) {
 				c = toupper(wheel_input_next(&lexer->input));
-				stb_sb_push(lexer->peek.string, c);
+				au_string_add(&string, "%c", c);
 			}
-			stb_sb_push(lexer->peek.string, 0);
+			lexer->peek.string = string.data;
+			au_log_dbug("LEXER", "Token: %s", string.data);
 
 		} else if (c == '"') {
 
 			wheel_input_next(&lexer->input);
 			lexer->peek.type = WHEEL_TOKEN_STRING;
-			lexer->peek.string = NULL;
+			au_string_t string;
+			au_string_create(&string);
 			while (wheel_input_peek(&lexer->input) != '"') {
-				stb_sb_push(lexer->peek.string, lexer_nextchar(lexer));
+				au_string_add(&string, "%c", lexer_nextchar(lexer));
 			}
-			stb_sb_push(lexer->peek.string, 0);
+			lexer->peek.string = string.data;
 			wheel_input_next(&lexer->input);
+			au_log_dbug("LEXER", "Token: \"%s\"", string.data);
 
 		} else {
 

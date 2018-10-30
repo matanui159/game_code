@@ -1,8 +1,11 @@
 #include "input.h"
-#include "util.h"
+#include "file.h"
+#include <au/log.h>
+#include <au/string.h>
+#include <stdarg.h>
 
 void wheel_input_create(wheel_input_t* input, const char* path) {
-	input->file = wheel_util_file(path, "rb");
+	input->file = wheel_file_open(path, "rb");
 	input->path = path;
 	input->line = 1;
 	input->peek = -1;
@@ -39,16 +42,11 @@ char wheel_input_next(wheel_input_t* input) {
 }
 
 void wheel_input_error(wheel_input_t* input, const char* fmt, ...) {
+	au_string_t string;
+	au_string_create(&string);
+	au_string_add(&string, "%s:%i", input->file, input->line);
+
 	va_list list;
 	va_start(list, fmt);
-
-	va_list copy;
-	va_copy(copy, list);
-	int size = vsnprintf(NULL, 0, fmt, copy) + 1;
-	va_end(copy);
-
-	char buffer[size];
-	vsnprintf(buffer, size, fmt, list);
-	va_end(list);
-	wheel_util_error("[%s:%i] %s", input->path, input->line, buffer);
+	au_vlog_fail(string.data, fmt, list);
 }

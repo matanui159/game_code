@@ -1,7 +1,6 @@
-#include "util.h"
-#include "input.h"
 #include <au/log.h>
 #include <au/cmdline.h>
+#include <stddef.h>
 
 int main(int argc, char* argv[]) {
 	au_cmdline_t cmdline;
