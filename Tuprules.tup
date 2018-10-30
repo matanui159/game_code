@@ -12,7 +12,7 @@ ifeq (@(TUP_PLATFORM),win32)
 endif
 
 ifeq ($(CONFIG),debug)
-	CC_FLAGS += -g -DAU_TEST_BUILD
+	CC_FLAGS += -g
 endif
 
 ifeq ($(CONFIG),release)

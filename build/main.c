@@ -1,18 +1,16 @@
 #include "util.h"
 #include "input.h"
-#include <au/test.h>
 #include <au/log.h>
+#include <au/cmdline.h>
 
 int main(int argc, char* argv[]) {
-	#ifdef NDEBUG
-		au_log_init(AU_LOG_WARN, au_log_default);
-	#else
-		au_log_init(AU_LOG_DBUG, au_log_default);
-	#endif
-	au_test_run();
+	au_cmdline_t cmdline;
+	au_cmdline_create(&cmdline, argc, argv);
+	while (au_cmdline_next(&cmdline) != NULL);
 
-	if (argc < 3) {
-		au_log(AU_LOG_FAIL, "USAGE", "build <input> <output>");
-	}
+	au_log_dbug("MAIN", "Debug message");
+	au_log_info("MAIN", "Info message");
+	au_log_warn("MAIN", "Warning message");
+	au_log_fail("MAIN", "Failure message");
 	return 0;
 }
